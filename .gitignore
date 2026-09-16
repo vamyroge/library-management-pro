@@ -4,3 +4,5 @@
 .DS_Store
 *.log
 coverage
+*.txt
+verify.json

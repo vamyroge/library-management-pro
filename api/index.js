@@ -13,8 +13,8 @@ app.use(cors());
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
-const DATABASE_URL = process.env.DATABASE_URL;
-const JWT_SECRET = process.env.JWT_SECRET || "dev_secret_change_me";
+const DATABASE_URL = (process.env.DATABASE_URL || "").replace(/^\uFEFF/, "").trim();
+const JWT_SECRET = (process.env.JWT_SECRET || "dev_secret_change_me").replace(/^\uFEFF/, "").trim();
 
 let cached = global.__mongoose;
 if (!cached) cached = global.__mongoose = { conn: null, promise: null };
@@ -112,9 +112,22 @@ function withOverdue(doc) {
   return obj;
 }
 
-app.use(asyncHandler(async (req, res, next) => { await connectDB(); next(); }));
+app.get("/api/health", (req, res) => {
+  const dbg = process.env.DATABASE_URL || "";
+  res.json({
+    success: true,
+    message: "Library API is running",
+    _dbg: {
+      hasUrl: !!dbg,
+      len: dbg.length,
+      prefix: dbg.slice(0, 15),
+      hasScheme: dbg.startsWith("mongodb"),
+      jwt: !!process.env.JWT_SECRET,
+    },
+  });
+});
 
-app.get("/api/health", (req, res) => res.json({ success: true, message: "Library API is running" }));
+app.use(asyncHandler(async (req, res, next) => { await connectDB(); next(); }));
 
 const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 30, standardHeaders: true, legacyHeaders: false });
 

@@ -1,0 +1,16 @@
+﻿node.exe : Vercel CLI 59.19.0 (Node.js 22.16.0)
+At C:\Users\Administrator\AppData\Roaming\npm\vercel.ps1:22 char:14
++ ...    $input | & "node$exe"  "$basedir/node_modules/vercel/dist/vc.js" $ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Vercel CLI 59.19.0 (Node.js 22.16.0):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Retrieving project…
+> Removed trailing newline from stdin input
+Saving…
+
+✓ Overrode        JWT_EXPIRES_IN
+  Project         vamyroge/library-management-pro
+  Environments    Production
+  Type            Secret
+  Stored as Secret by default. This value is hidden in the dashboard and unavailable to pulls; use `--type config` for values you need to read later.

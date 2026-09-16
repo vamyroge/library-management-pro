@@ -1,0 +1,9 @@
+{
+  "steps": [
+    "start"
+  ],
+  "mongoose": "8.24.4",
+  "hasUrl": true,
+  "connected": false,
+  "error": "bad auth : authentication failed"
+}
